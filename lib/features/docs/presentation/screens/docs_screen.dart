@@ -12,9 +12,14 @@ class DocsScreen extends StatelessWidget {
       body: PageView.builder(
         itemBuilder: (ctx, index) {
           return Center(
-            child: Text(
-              index.toString(),
-              style: const TextStyle(fontSize: 17),
+            child: Column(
+              children: [
+                Text(index.toString()),
+                TextButton(
+                  onPressed: () => context.router.maybePop(),
+                  child: const Text('Back'),
+                ),
+              ],
             ),
           );
         },

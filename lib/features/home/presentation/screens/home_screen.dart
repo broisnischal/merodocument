@@ -77,165 +77,101 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: ColorConst.whiteColor,
-      appBar: AppBar(
-        title: Text(
-          'Mero Documents',
-          style: GoogleFonts.inter(
-            fontSize: 16.sp,
-            fontWeight: FontWeight.w700,
+      // appBar: AppBar(
+      //   title: Text(
+      //     'Mero Documents',
+      //     style: GoogleFonts.inter(
+      //       fontSize: 16.sp,
+      //       fontWeight: FontWeight.w700,
+      //     ),
+      //   ),
+      // ),
+      body: CustomScrollView(
+        slivers: [
+          SliverAppBar(
+            backgroundColor: ColorConst.whiteColor,
+            // pinned: true,
+            // floating: true,
+            // snap: true,
+            centerTitle: false,
+            title: Text(
+              'Mero Documents',
+              style: GoogleFonts.inter(
+                fontSize: 16.sp,
+                fontWeight: FontWeight.w700,
+              ),
+            ),
           ),
-        ),
-      ),
-      body: RefreshIndicator(
-        onRefresh: () async {},
-        child: SingleChildScrollView(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Padding(
-                padding: EdgeInsets.all(12.sp),
-                child: ReorderableGridView.count(
-                  shrinkWrap: true,
-                  crossAxisSpacing: 10,
-                  mainAxisSpacing: 10,
-                  padding: EdgeInsets.zero,
-                  physics: const BouncingScrollPhysics(),
-                  crossAxisCount: 3,
-                  addRepaintBoundaries: false,
-                  addSemanticIndexes: false,
-                  clipBehavior: Clip.antiAliasWithSaveLayer,
-                  onDragStart: (_) {
-                    print('drag start');
-                  },
-                  onReorder: (oldIndex, newIndex) {
-                    setState(() {
-                      final element = data.removeAt(oldIndex);
-                      data.insert(newIndex, element);
-                    });
-                  },
-                  footer: [
-                    if (data.length < 6)
-                      GestureDetector(
-                        onTap: () {
-                          setState(() {
-                            data.add('Folder ${data.length + 1}');
-                          });
-                        },
-                        child: Card(
-                          color: ColorConst.blackColor.withOpacity(.02),
-                          elevation: 0,
-                          key: const ValueKey('Footer'),
-                          child: const Center(
-                            child: Icon(Icons.add),
-                          ),
-                        ),
-                      ),
-                  ],
-                  children: data.map(buildItem).toList(),
-                ),
-              ),
-              20.verticalSpace,
-              Padding(
-                padding: EdgeInsets.all(12.sp),
-                child: Text(
-                  'Recently Added Documents',
-                  style: GoogleFonts.inter(
-                    fontSize: 14.sp,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
-              ),
-              10.verticalSpace,
-              SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Row(
-                  children: List.generate(8, (index) {
-                    return Container(
-                      margin: index == 0
-                          ? EdgeInsets.only(left: 12.sp, right: 10.sp)
-                          : EdgeInsets.only(right: 10.sp),
-                      width: 150,
-                      height: 120,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10.r),
-                        border: Border.all(
-                          color: ColorConst.blackColor.withOpacity(0.2),
-                        ),
-                        color: ColorConst.blackColor.withOpacity(0.02),
-                      ),
-                      child: const Center(
-                        child: Text('Sales Deed', style: TextStyle()),
-                      ),
-                    );
-                  }),
-                ),
-              ),
-              10.verticalSpace,
-              Padding(
-                padding: EdgeInsets.all(12.sp),
-                child: Text(
-                  'Currently Shared Documents',
-                  style: GoogleFonts.inter(
-                    fontSize: 14.sp,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
-              ),
-              5.verticalSpace,
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 12.sp),
-                child: ListView.builder(
-                  itemBuilder: (context, index) {
-                    return GestureDetector(
-                      onLongPress: () {
-                        showModalBottomSheet(
-                          backgroundColor: ColorConst.whiteColor,
-                          isScrollControlled: true,
-                          showDragHandle: true,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(16.r),
-                          ),
-                          context: context,
-                          builder: (builder) {
-                            return Container(
-                              height: 200,
-                              color: ColorConst.whiteColor,
-                              child: Column(
-                                children: [
-                                  ListTile(
-                                    title: const Text('Copy Document Code'),
-                                    leading: SvgPicture.asset(
-                                      MyAssets.svgs.pdf2.path,
-                                      width: 20.sp,
-                                      height: 20.sp,
-                                    ),
-                                  ),
-                                  ListTile(
-                                    title: const Text('Cancel Sharing'),
-                                    leading: SvgPicture.asset(
-                                      MyAssets.svgs.pdf2.path,
-                                      width: 20.sp,
-                                      height: 20.sp,
-                                    ),
-                                  ),
-                                  ListTile(
-                                    title: const Text('Delete Document'),
-                                    leading: SvgPicture.asset(
-                                      MyAssets.svgs.pdf2.path,
-                                      width: 20.sp,
-                                      height: 20.sp,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            );
+          // 20.verticalSpace,
+          SliverToBoxAdapter(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: EdgeInsets.all(12.sp),
+                  child: ReorderableGridView.count(
+                    shrinkWrap: true,
+                    crossAxisSpacing: 10,
+                    mainAxisSpacing: 10,
+                    padding: EdgeInsets.zero,
+                    physics: const BouncingScrollPhysics(),
+                    crossAxisCount: 3,
+                    addRepaintBoundaries: false,
+                    addSemanticIndexes: false,
+                    clipBehavior: Clip.antiAliasWithSaveLayer,
+                    onDragStart: (_) {
+                      print('drag start');
+                    },
+                    onReorder: (oldIndex, newIndex) {
+                      setState(() {
+                        final element = data.removeAt(oldIndex);
+                        data.insert(newIndex, element);
+                      });
+                    },
+                    footer: [
+                      if (data.length < 6)
+                        GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              data.add('Folder ${data.length + 1}');
+                            });
                           },
-                        );
-                      },
-                      child: Container(
-                        margin: EdgeInsets.only(bottom: 10.sp),
-                        padding: EdgeInsets.all(10.sp),
+                          child: Card(
+                            color: ColorConst.blackColor.withOpacity(.02),
+                            elevation: 0,
+                            key: const ValueKey('Footer'),
+                            child: const Center(
+                              child: Icon(Icons.add),
+                            ),
+                          ),
+                        ),
+                    ],
+                    children: data.map(buildItem).toList(),
+                  ),
+                ),
+                20.verticalSpace,
+                Padding(
+                  padding: EdgeInsets.all(12.sp),
+                  child: Text(
+                    'Recently Added Documents',
+                    style: GoogleFonts.inter(
+                      fontSize: 14.sp,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ),
+                10.verticalSpace,
+                SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                    children: List.generate(8, (index) {
+                      return Container(
+                        margin: index == 0
+                            ? EdgeInsets.only(left: 12.sp, right: 10.sp)
+                            : EdgeInsets.only(right: 10.sp),
+                        width: 150,
+                        height: 120,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10.r),
                           border: Border.all(
@@ -243,37 +179,117 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                           color: ColorConst.blackColor.withOpacity(0.02),
                         ),
-                        child: Row(
-                          children: [
-                            Text(
-                              'Sales Deed',
-                              style: GoogleFonts.inter(
-                                fontSize: 14.sp,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                            const Spacer(),
-                            Text(
-                              'Expires in 3 day',
-                              style: GoogleFonts.poppins(
-                                fontSize: 12.sp,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                          ],
+                        child: const Center(
+                          child: Text('Sales Deed', style: TextStyle()),
                         ),
-                      ),
-                    );
-                  },
-                  itemCount: 5,
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
+                      );
+                    }),
+                  ),
                 ),
-              ),
-              20.verticalSpace,
-            ],
+                10.verticalSpace,
+                Padding(
+                  padding: EdgeInsets.all(12.sp),
+                  child: Text(
+                    'Currently Shared Documents',
+                    style: GoogleFonts.inter(
+                      fontSize: 14.sp,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ),
+                5.verticalSpace,
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 12.sp),
+                  child: ListView.builder(
+                    itemBuilder: (context, index) {
+                      return GestureDetector(
+                        onLongPress: () {
+                          showModalBottomSheet(
+                            backgroundColor: ColorConst.whiteColor,
+                            isScrollControlled: true,
+                            showDragHandle: true,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(16.r),
+                            ),
+                            context: context,
+                            builder: (builder) {
+                              return Container(
+                                height: 200,
+                                color: ColorConst.whiteColor,
+                                child: Column(
+                                  children: [
+                                    ListTile(
+                                      title: const Text('Copy Document Code'),
+                                      leading: SvgPicture.asset(
+                                        MyAssets.svgs.pdf2.path,
+                                        width: 20.sp,
+                                        height: 20.sp,
+                                      ),
+                                    ),
+                                    ListTile(
+                                      title: const Text('Cancel Sharing'),
+                                      leading: SvgPicture.asset(
+                                        MyAssets.svgs.pdf2.path,
+                                        width: 20.sp,
+                                        height: 20.sp,
+                                      ),
+                                    ),
+                                    ListTile(
+                                      title: const Text('Delete Document'),
+                                      leading: SvgPicture.asset(
+                                        MyAssets.svgs.pdf2.path,
+                                        width: 20.sp,
+                                        height: 20.sp,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              );
+                            },
+                          );
+                        },
+                        child: Container(
+                          margin: EdgeInsets.only(bottom: 10.sp),
+                          padding: EdgeInsets.all(10.sp),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10.r),
+                            border: Border.all(
+                              color: ColorConst.blackColor.withOpacity(0.2),
+                            ),
+                            color: ColorConst.blackColor.withOpacity(0.02),
+                          ),
+                          child: Row(
+                            children: [
+                              Text(
+                                'Sales Deed',
+                                style: GoogleFonts.inter(
+                                  fontSize: 14.sp,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                              const Spacer(),
+                              Text(
+                                'Expires in 3 day',
+                                style: GoogleFonts.poppins(
+                                  fontSize: 12.sp,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      );
+                    },
+                    itemCount: 5,
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                  ),
+                ),
+                20.verticalSpace,
+              ],
+            ),
           ),
-        ),
+        ],
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {

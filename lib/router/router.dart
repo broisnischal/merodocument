@@ -11,15 +11,19 @@ class AppRouter extends $AppRouter {
   @override
   List<AutoRoute> get routes => [
         AutoRoute(
-            page: IndexPageRoute.page,
-            initial: true,
-            path: '/',
-            children: [
-              AutoRoute(page: HomePageRoute.page),
-              AutoRoute(page: RecentPageRoute.page),
-              AutoRoute(page: StarredPageRoute.page),
-              AutoRoute(page: ProfileScreenRoute.page),
-              AutoRoute(page: DocsPageRoute.page),
-            ]),
+          page: IndexPageRoute.page,
+          initial: true,
+          path: '/',
+          children: [
+            AutoRoute(page: HomePageRoute.page),
+            AutoRoute(
+              page: RecentPageRoute.page,
+            ),
+            AutoRoute(page: StarredPageRoute.page),
+            AutoRoute(page: ProfileScreenRoute.page),
+            AutoRoute(page: DocsPageRoute.page),
+          ],
+        ),
+        AutoRoute(page: RecentPageRoute.page, path: '/products'),
       ];
 }
